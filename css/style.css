@@ -1,0 +1,71 @@
+*{
+        margin:0;
+        padding: 0;
+        box-sizing: border-box;
+}
+
+body{
+        max-width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
+}
+
+.campo{
+        width: 280px;
+        display: flex;
+        flex-direction: column;
+}
+
+label{
+        margin-bottom: 5px;
+        font-size: 20px;
+}
+
+input{
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: 1px solid black;
+}
+
+button{
+        transition: 0.5s;
+        border: 2px solid black;
+        background-color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 18px;
+}
+
+#password{
+        position: relative;
+        top: 20px;
+        font-size: 18px;
+        max-width: 180px;
+        word-wrap: break-word;
+}
+
+#suaSenha{
+        font-size: 18px;
+}
+
+#final{
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.87);
+}
+
+button:hover{
+        transition: 0.5s;
+        color: white;
+        background-color: black;
+        cursor: pointer;
+}
+
+button:active{
+        background-color: white;
+        color: black;
+}

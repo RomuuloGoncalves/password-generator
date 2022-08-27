@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gerador de senha</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body >
-    <label for="quantia">Informe a quantia de caractéres que a senha terá <br></label>
-    <input type="text" id="quantia"  style="margin-top: 3px;">
-    <button onclick="gerar()">gerar</button>
+    <div class="campo">
+        <label for="quantia">Quantia de caractéres: <br></label>
+        <div class="input__btn"></div>
+        <input type="text" id="quantia"  style="margin-top: 3px;">
+        <button onclick="gerar()">Gerar senha</button>
+    </div>
     <p id="password"></p>
-    <script src="./script.js"></script>
+
+    <script src="./js/script.js"></script>
 </body>
 </html>
