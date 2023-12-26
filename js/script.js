@@ -1,84 +1,71 @@
-function gerar() {
-	let quantia = document.getElementById("quantia").value;
-	if(quantia.trim() == ""){
-		document.getElementById("password").innerHTML = `Preencha o campo acima`;
-	}else{	
-		if(quantia > 200){
-			document.getElementById("password").innerHTML = `Informe uma quantia menor de caractéres`;
-		}else{
-			sorte = 120;
-			senha = [];
-			for (let i = 0; i < quantia; i++) {
-				var aleatorio = Math.random() * 100;
-				aleatorio = Math.floor(aleatorio);
-				par = aleatorio % 2 === 0;
+const resultado = document.getElementById('result');
+const btnCopiar = document.getElementById('copy');
+const tamanho = document.getElementById('length');
+const letraMaiuscula = document.getElementById('uppercase');
+const numeros = document.getElementById('numbers');
+const simbolos = document.getElementById('symbols');
+const btnGerar = document.getElementById('generate');
+const formulario = document.getElementById('passwordGeneratorForm');
 
-				if (par) {
-					console.log("Sorte par");
+const maiusculasCode = arrayMinusculaMaiuscula(65, 90);
+const minusculasCode = arrayMinusculaMaiuscula(97, 122);
+const numerosCode = arrayMinusculaMaiuscula(48, 57);
+const simbolosCode = arrayMinusculaMaiuscula(33, 47)
+	.concat(arrayMinusculaMaiuscula(58, 64))
+	.concat(arrayMinusculaMaiuscula(91, 96))
+	.concat(arrayMinusculaMaiuscula(123, 126));
 
-					aleatorio = Math.random() * 10;
-					aleatorio = Math.floor(aleatorio);
-					resto = aleatorio % 2;
-					if (resto === 0) {
-						if (aleatorio < 33) {
-							while (aleatorio < 33) {
-								aleatorio = (Math.random()) * sorte;
-								aleatorio = Math.floor(aleatorio);
-								console.log(aleatorio);
-							}
-							senha[i] = String.fromCharCode(aleatorio);
-						} else {    
-							senha[i] = String.fromCharCode(aleatorio);
-						}
-					} else {
-						senha[i] = aleatorio;
-					}
-				} else {
-					console.log("Sorte impar");
-					aleatorio = Math.random() * 10;
-					aleatorio = Math.floor(aleatorio);
-					resto = aleatorio % 2;
-					if (resto !== 0) {
-						if (aleatorio < 33) {
-							while (aleatorio < 33) {
-								aleatorio = (Math.random()) * sorte;
-								aleatorio = Math.floor(aleatorio);
-								console.log(aleatorio);
-							}
-							
-							senha[i] = String.fromCharCode(aleatorio);
-						} else {
-							senha[i] = String.fromCharCode(aleatorio);
-						}
-					} else {
-						senha[i] = aleatorio;
-					}
-				}
-			}
-			var final= ""
+btnCopiar.addEventListener('click', () => {
+	const textarea = document.createElement('textarea');
+	const passwordToCopy = resultado.innerText;
 
-			for(let i = 0; i < quantia; i++){
-				final += senha[i]
-			}
-			// let final = senha.join("");
-			document.getElementById("password").innerHTML = `<span id="suaSenha">Sua senha: </span> <span id="final">${final}</span> `;
-		}
+	if (!passwordToCopy) return;
+
+	textarea.value = passwordToCopy;
+	document.body.appendChild(textarea);
+	textarea.select();
+	document.execCommand('copy');
+	textarea.remove();
+});
+
+formulario.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const carcteres = tamanho.value;
+	const incluirMaiuscla = letraMaiuscula.checked;
+	const incluirNumeros = numeros.checked;
+	const incluirSimbolos = simbolos.checked;
+	const senha = gerarSenha(
+		carcteres,
+		incluirMaiuscla,
+		incluirNumeros,
+		incluirSimbolos
+	);
+	resultado.innerText = senha;
+});
+
+let gerarSenha = (
+	characterAmount,
+	includeUppercase,
+	includeNumbers,
+	includeSymbols
+) => {
+	let charCodes = minusculasCode;
+	if (includeUppercase) charCodes = charCodes.concat(maiusculasCode);
+	if (includeSymbols) charCodes = charCodes.concat(simbolosCode);
+	if (includeNumbers) charCodes = charCodes.concat(numerosCode);
+	const passwordCharacters = [];
+	for (let i = 0; i < characterAmount; i++) {
+		const characterCode =
+			charCodes[Math.floor(Math.random() * charCodes.length)];
+		passwordCharacters.push(String.fromCharCode(characterCode));
 	}
+	return passwordCharacters.join('');
+};
+
+function arrayMinusculaMaiuscula(low, high) {
+	const array = [];
+	for (let i = low; i <= high; i++) {
+		array.push(i);
+	}
+	return array;
 }
-
-
-
-
-// function randomIntFromInterval(min, max) {
-	//     return Math.floor(Math.random() * (max - min + 1) + min)
-	// }
-	
-
-// for (let  i =0; i <1000; i++){
-
-    
-//     if(randomIntFromInterval(33, 126) === 33){
-//         console.log("33")
-
-//     }
-// }
